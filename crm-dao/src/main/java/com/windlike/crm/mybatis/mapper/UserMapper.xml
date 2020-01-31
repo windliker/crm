@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 动态代理开发规则：
+1. namespace必须是接口的全路径名
+2. 接口的方法名必须与SQL id一致
+3. 接口的入参必须与parameterType类型一致
+4. 接口的返回值必须与resultType类型一致。
+ -->
+<mapper namespace="user">
+	<insert id="insertUser" parameterType="com.windlike.crm.mybatis.pojo.User"
+		useGeneratedKeys="true" keyProperty="userid">
+		<!-- 插入记录的主键赋值给userId 可以增加两个属性设置代替-->
+		<!-- <selectKey keyProperty="userId" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey> -->
+		INSERT INTO user(
+			id, username, birthday, sex, address)
+			VALUES(#{id},#{username},#{birthday},#{sex},#{address})
+	</insert>
+	<insert id="insertUserUUID" parameterType="com.windlike.crm.mybatis.pojo.User"
+	 	useGeneratedKeys="true" keyProperty="userid">
+		<selectKey keyProperty="uuid" resultType="String" order="BEFORE">
+			SELECT UUID()
+		</selectKey>
+		INSERT INTO user(
+			username,birthday,sex,address,uuid)
+			values(#{username},#{birthday},#{sex},#{address},#{uuid})	
+	</insert>
+	<select id="getUserById" parameterType="int" resultType="com.windlike.crm.mybatis.pojo.User">
+		SELECT id,username,birthday,sex,address
+		FROM user
+		<!-- #{}占位符相当于jdbc中的? -->
+		WHERE id = #{id}
+	</select>
+	<select id="getUserByUserName" parameterType="String" resultType="com.windlike.mybatis.pojo.User">
+		SELECT userid,username,birthday,sex,address
+		FROM user
+		WHERE username LIKE '%${value}%'
+		<!-- WHERE username LIKE #{name} -->
+	</select>
+	<select id="getUserByQueryVo" parameterType="com.windlike.crm.mybatis.pojo.QueryVo" resultType="com.windlike.mybatis.pojo.User">
+		SELECT userid,username,birthday,sex,address
+		FROM user
+		WHERE username LIKE '%${user.username}%'
+		<!-- WHERE username LIKE #{name} -->
+	</select>
+	<update id="updateUser" parameterType="com.windlike.crm.mybatis.pojo.User">
+		UPDATE user
+		SET username = #{username}
+		WHERE userid = #{userid};
+	</update>
+	<delete id="deleteUser" parameterType="int">
+		DELETE
+		FROM user
+		WHERE userid = #{userid};
+	</delete>
+	<select id="getUserByMap" parameterType="java.util.Map" resultType="com.windlike.crm.mybatis.pojo.User">
+		SELECT
+			username,birthday,sex,address
+		FROM user
+		<where>
+			<if test="username != null and username != ''">
+				AND username LIKE '%${username}%'
+			</if>
+			<if test="sex != null and sex != '' ">
+				AND sex = #{sex}
+			</if>
+		</where>
+	</select>
+	<!-- select * from user where userid in (1,25,29,30,35) -->
+	<select id="getUserByIds" parameterType="com.windlike.crm.mybatis.pojo.QueryVo"
+	 resultType="com.windlike.crm.mybatis.pojo.User">
+		SELECT
+			<include refid="user_sql"/>
+		FROM user
+		<where>
+			<foreach collection="ids" open="userid in(" item="uid" separator="," close=")">
+				#{uId}
+			</foreach>
+		</where>
+	</select>
+    
+    <resultMap type="com.windlike.crm.mybatis.pojo.User" id="userResultMap">
+        <id property="userid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="address" column="address"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <!-- 一对多 -->
+        <collection property="orders" ofType="com.windlike.crm.mybatis.pojo.Order">
+            <id property="id" column="oid"/>
+            <result property="number" column="number"/>
+            <result property="createtime" column="createtime"/>
+            <result property="note" column="note"/>
+        </collection>
+    </resultMap>
+    <select id="getUserResultMap" resultMap="userResultMap">
+        SELECT
+            u.id uid,
+            u.username,
+            u.birthday,
+            u.sex,
+            u.address,
+            u.uuid2,
+            o.id oid,
+            o.number,
+            o.createtime,
+            o.note
+        FROM
+            user u
+            LEFT JOIN order o
+            ON u.id=o.user_id
+    </select>
+    
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="order">
+    <resultMap id="orderResultMap" type="com.windlike.crm.mybatis.pojo.Order">
+        <!-- id用于映射主键 -->
+        <id property="id" column="id"/>
+        <!-- 普通字段用result映射 -->
+        <result property="userId" column="user_id"/>
+        <result property="number" column="number"/>
+        <result property="createtime" column="createtime"/>
+        <result property="note" column="note"/>
+        <!-- 配置一对一关系 -->
+        <association property="user" javaType="com.windlike.crm.mybatis.pojo.User">
+            <id property="id" column="user_id"/>
+            <result property="username" column="username"/>
+            <result property="address" column="address"/>
+            <result property="birthday" column="birthday"/>
+            <result property="sex" column="sex"/>
+        </association>
+    </resultMap>
+    <select id="getOrderResultMap" resultMap="orderResultMap">
+        SELECT
+            o.id,
+            o.user_id,
+            o.number,
+            o.createtime,
+            o.note,
+            u.username,
+            u.address,
+            u.birthday,
+            u.sex
+        FROM
+            order o
+            LEFT JOIN user u
+            ON o.user_id=u.id
+    </select>
+</mapper>
