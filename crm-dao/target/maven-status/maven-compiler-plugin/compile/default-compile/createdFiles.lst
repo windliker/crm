@@ -1,9 +1,0 @@
-com\windlike\crm\dao\ICustomerDao.class
-com\windlike\crm\mybatis\dao\impl\UserDaoImpl.class
-com\windlike\crm\mybatis\pojo\User.class
-com\windlike\crm\mybatis\utils\SqlSessionFactoryUtils.class
-com\windlike\crm\dao\impl\CustomerDao.class
-com\windlike\crm\domain\Customer.class
-com\windlike\crm\mybatis\dao\UserDao.class
-com\windlike\crm\mybatis\pojo\QueryVo.class
-com\windlike\crm\mybatis\mapper\UserMapper.class
