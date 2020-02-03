@@ -9,7 +9,8 @@ public class Test20200203 {
         a *= b + 2; // a = a * (b + 2), a=60
         System.out.println("a = " + a);
         
-        // 使用标号可以一键跳出多重循环 可参考枚举拼凑法
+        // 循环上面添加标号,就可使break,continue作用于指定的循环,
+        // 可参考CommonSimpleAlgorithms枚举拼凑法
     }
 
 }
