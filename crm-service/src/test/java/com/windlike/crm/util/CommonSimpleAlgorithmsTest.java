@@ -43,4 +43,34 @@ public class CommonSimpleAlgorithmsTest {
         stdin.close();
     }
 
+    @Test
+    public void testIsPrimeNum() {
+        System.out.println("entry the testing is prime number program...");
+        int boundary = 50000;
+        int count = 0;
+        for (int i = -boundary; i <= boundary; i++) {
+            if(CommonSimpleAlgorithms.isPrimeNum(i)) {
+                count++;
+                System.out.print(i + " ");
+                if(count % 10 == 0) {
+                    System.out.println();
+                }
+            }
+        }
+        System.out.println("\r\nThere are " + count + " prime numbers within "
+                        + boundary);
+        Scanner stdin = new Scanner(System.in);
+        while(true) {
+            System.out.print("continue?(y/n):");
+            if("n".equals(stdin.next())) {
+                System.out.println("exit...");
+                break;
+            }
+            System.out.print("please input a number:");
+            int digital = stdin.nextInt();
+            System.out.println(digital + " is a prime number? "
+                            + CommonSimpleAlgorithms.isPrimeNum(digital));
+        }
+        stdin.close();
+    }
 }

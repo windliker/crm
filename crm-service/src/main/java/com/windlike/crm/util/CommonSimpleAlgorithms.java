@@ -57,4 +57,32 @@ public class CommonSimpleAlgorithms {
         }while(number != 0);
         return reverse;
     }
+    
+    /**
+     * 判断素数（质数）
+     * 在大于1的自然数中，除了1和它本身以外不再有其他因数的自然数。
+     * @param number
+     * @return
+     */
+    public static boolean isPrimeNum(int number) {
+        boolean isPrimeNumber = true;
+        if(number > 1) {
+            // non-two even number is not primer number
+            if (number != 2 && number % 2 == 0) {
+                isPrimeNumber = false;
+            }
+            // owns non-one odd factor is not a primer number
+            for (int i = 3; i <= Math.sqrt(number); i+=2) {
+                if (number % i == 0) {
+//                    System.out.println(number + "/" + i + "=" + number/i);
+                    isPrimeNumber = false;
+                    break;
+                }
+            }
+        }
+        else {
+            isPrimeNumber = false;
+        }
+        return isPrimeNumber;
+    }
 }
