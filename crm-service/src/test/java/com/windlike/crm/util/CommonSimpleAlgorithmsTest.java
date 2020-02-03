@@ -73,4 +73,22 @@ public class CommonSimpleAlgorithmsTest {
         }
         stdin.close();
     }
+    
+    @Test
+    public void testPieceTogetherEnumeration() {
+        System.out.println("entry the testing piece Together Enumeration program...");
+        Scanner stdin = new Scanner(System.in);
+        while(true) {
+            System.out.print("continue?(y/n):");
+            if("n".equals(stdin.next())) {
+                System.out.println("exit...");
+                break;
+            }
+            System.out.print("please input a number:");
+            int digital = stdin.nextInt();
+            System.out.println(CommonSimpleAlgorithms
+                            .pieceTogetherEnumeration(digital));
+        }
+        stdin.close();
+    }
 }

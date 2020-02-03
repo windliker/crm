@@ -1,5 +1,10 @@
 package com.windlike.crm.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class CommonSimpleAlgorithms {
 
     private CommonSimpleAlgorithms() {}
@@ -84,5 +89,35 @@ public class CommonSimpleAlgorithms {
             isPrimeNumber = false;
         }
         return isPrimeNumber;
+    }
+    
+    /**
+     * 1元，5元，10元，20元拼凑amount元
+     * @param amount
+     * @return
+     */
+    public static List<Map<String, Integer>> pieceTogetherEnumeration(int amount) {
+        List<Map<String, Integer>> results = new ArrayList<Map<String, Integer>>();
+//        OUT:
+        for(int twentyNum = 0; twentyNum <= amount / 20; twentyNum++) { // 20元的数量
+            for(int tenNum = 0; tenNum <= amount / 10; tenNum++) { // 10元的数量
+                for(int fiveNum = 0; fiveNum <= amount / 5; fiveNum++) { // 5元的数量
+                    for(int oneNum = 0; oneNum <= amount; oneNum++) { // 1元的数量
+                        if(oneNum + fiveNum * 5 + tenNum * 10 + twentyNum * 20
+                                        == amount) {
+                            Map<String, Integer> result
+                                = new HashMap<String, Integer>();
+                            result.put("oneNum", oneNum);
+                            result.put("fiveNum", fiveNum);
+                            result.put("tenNum", tenNum);
+                            result.put("twentyNum", twentyNum);
+                            results.add(result);
+//                            break OUT;
+                        }
+                    }
+                }
+            }
+        }
+        return results;
     }
 }
