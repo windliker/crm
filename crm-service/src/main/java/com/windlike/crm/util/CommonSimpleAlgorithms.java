@@ -85,6 +85,88 @@ public class CommonSimpleAlgorithms {
     }
     
     /**
+     * 判断素数方法2
+     * 判断是否能被已知小于自身的素数整除
+     * @param number
+     * @return
+     */
+    public static boolean isPrimeNumV2(int number) {
+        boolean isPrimeNumber = true;
+        if(number <= 1) {
+            isPrimeNumber = false;
+        }
+        else {
+            // 判断number是否素数
+            for (int primeNum : CommonSimpleAlgorithms.getPrimeNums(50)) {
+                if (number % primeNum == 0 && number > primeNum) {
+                    isPrimeNumber = false;
+//                    System.out.println(number + "/" + prime + "=" + number/prime);
+                    break;
+                }
+            }
+        }
+        return isPrimeNumber;
+    }
+    
+    /**
+     * 构造规格为size的素数表
+     * @param size
+     * @return
+     */
+    public static int[] getPrimeNums(int size) {
+        // 构造包含size个素数的素数表
+        int[] primeNums = new int[size];
+        primeNums[0] = 2;
+        // count:记录素数表中素数的个数
+        int count = 1;
+        LOOP_1:
+        // digit:落素数表的候选数字
+        for (int digit = 3; count < primeNums.length; digit+=2) {
+            // 遍历素数表中已有素数
+            for (int index = 0; index < count; index++) {
+                if (digit % primeNums[index] == 0) {
+                    continue LOOP_1;
+                }
+            }
+            primeNums[count++] = digit;
+        }
+        return primeNums;
+    }
+    
+    /**
+     * 构造规格为size的素数表
+     * @param size
+     * @return
+     */
+    public static int[] getPrimeNumsV2(int size) {
+        // 构造包含size个素数的素数表
+        int[] primeNums = new int[size];
+        // count:记录素数表中素数的个数
+        int count = 0;
+        
+        boolean[] isPrimes = new boolean[100]; // 所有元素默认初始化为false
+        // 除下标为0,1的元素外所有元素初始化为true
+        for (int i=2; i<isPrimes.length; i++) {
+            isPrimes[i] = true;
+        }
+        // 标记非素数
+        for (int i=2; i<isPrimes.length; i++) {
+            if (isPrimes[i]) {// i为素数，2i,3i,4i...一定不是素数
+                for (int k=2; k*i<isPrimes.length; k++) {
+                    isPrimes[k*i] = false;
+                }
+            }
+        }
+        
+        for (int i = 0; i < isPrimes.length && count < primeNums.length; i++) {
+            if(isPrimes[i]) {
+                primeNums[count++] = i;
+            }
+        }
+        return primeNums;
+    }
+    
+    /**
      * 1元，5元，10元，20元拼凑amount元
      * @param amount
      * @return
