@@ -104,7 +104,7 @@ public class Test20200208 {
                     // debug
 //                    System.out.println("反对角线X数加1,反对角线X数=" + numOfXBackDiag);
                 }
-
+                
                 for (int j = 0; j < board[i].length; j++) {
                     // 判断行
                     if (board[i][j] == 0) {//board[0][0],board[0][1],board[0][2]
