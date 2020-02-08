@@ -23,18 +23,11 @@ public class CommonSimpleAlgorithms {
      * @author windlike 2020-2-2 16:47:52
      */
     public static int getGcdEuclid(int m, int n) {
-        // 使m>=n
-        if(m < n) {
-            int tmp = m;
-            m = n;
-            n = tmp;
-        }
-        while (n != 0) {// while n > 0?
+        while (n != 0) {
             int remainder = m % n;
             m = n;
             n = remainder;
         }
-
         return m;
     }
     
