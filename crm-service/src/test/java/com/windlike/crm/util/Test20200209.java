@@ -128,6 +128,20 @@ public class Test20200209 {
         String str = stdin.nextLine(); // 读入一行 ，行的标志是换行、回车
         System.out.println(str);
         stdin.close();
+        
+        /********* 4 *********/
+        System.out.println(Test20200209.factorial(5));
+    }
+    
+    public static int factorial(int i) {
+        int ret = 0;
+        if (i == 1) {
+            ret = 1;
+        }
+        else {
+            ret = i * factorial(i-1);
+        }
+        return ret;
     }
 
 }
