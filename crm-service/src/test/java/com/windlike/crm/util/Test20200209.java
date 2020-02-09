@@ -1,6 +1,8 @@
 package com.windlike.crm.util;
 
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Test20200209 {
 
@@ -77,6 +79,47 @@ public class Test20200209 {
             System.out.println(a.charAt(i));
         }
         
+        String str1 = "0123456789汉字123";
+        System.out.println(str1.substring(1));
+        System.out.println(str1.substring(10, 12)); // [)
+        System.out.println(str1.substring(0, 10)); // [)
+        System.out.println(str1.indexOf('字')); // 11
+        System.out.println(str1.indexOf("123", str1.indexOf("123")+1)); // 12 第二次出现
+
+        String str2 = str1.substring(str1.indexOf('汉'));
+        System.out.println(str1);
+        System.out.println(str2);
+        
+        String[] courses = {"Java", "Java Web", "Computer Network",
+                        "Data Struct", "Algorithmns", "Spring", 
+                        "Mybatis", "Git", "Linux", "Docker",
+        };
+        Set<String> learnedCourses = new HashSet<String>();
+        int count = 0;
+        for (int randomIndex; learnedCourses.size()<courses.length; count++) {
+            randomIndex = (int) (Math.random()*courses.length);
+            switch(courses[randomIndex]) {
+            case "Java":
+            case "Java Web":
+            case "Computer Network":
+            case "Data Struct":
+            case "Algorithmns":
+            case "Spring":
+            case "Mybatis":
+            case "Git":
+            case "Linux":
+            case "Docker":
+                System.out.println(courses[randomIndex]);
+                learnedCourses.add(courses[randomIndex]);
+                break;
+            default:
+                System.out.println("Error");
+                break;
+            }
+        }
+        System.out.println(learnedCourses);
+        System.out.println(count);
+
         /********* 3 *********/
         System.out.println();
         Scanner stdin = new Scanner(System.in);
