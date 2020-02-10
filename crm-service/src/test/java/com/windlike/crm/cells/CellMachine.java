@@ -54,8 +54,10 @@ public class CellMachine {
 					System.out.println();
 				}
 			}
+			// 确定完本次区域内所有细胞的状态后，repaint展现
 			System.out.println("UPDATE");
 			frame.repaint();
+			// 等待0.2秒后进入下一次统计
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
