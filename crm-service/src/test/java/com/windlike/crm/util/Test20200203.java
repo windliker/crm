@@ -10,7 +10,7 @@ public class Test20200203 {
         System.out.println("a = " + a);
         
         // 循环上面添加标号,就可使break,continue作用于指定的循环,
-        // 可参考CommonSimpleAlgorithms枚举拼凑法
+        // 可参考CommonSimpleAlgorithms.pieceTogetherEnumeration()枚举拼凑法
     }
 
 }
